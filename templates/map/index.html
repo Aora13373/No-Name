@@ -1,0 +1,74 @@
+
+{% extends 'master.html' %}
+{% block content %}
+    <div id="map" style="width: 800px; height: 400px"></div>
+    
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"></script>
+
+    <!-- Scriptet under er midlertidig med geojson data for landene i verden.  Må erstattes med det som ligger i MongoDB databasen til slutt.-->
+	<script src="{{ url_for('static', filename='mapjson.js') }}"></script>
+    
+    
+    <script>
+	function onEachFeature(feature, layer) {
+    
+    // Denne funksjonen legger til en callback funksjon til hvert land
+    if (feature.properties && feature.properties.sovereignt) {
+        layer.on('click', clicked)
+    }
+
+    // callback funksjonen.  Ajax request som oppdaterer #info div med responsen
+    function clicked(e) {
+        country_name = e.target.feature.properties.sovereignt
+        $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            dataType: "json",
+            url: "{{url_for('map.country_stat')}}", 
+            data: JSON.stringify({cname: e.target.feature.properties.sovereignt}),
+            success: function(result){
+                $("#info").html(result.responseText);
+            },
+            error: function(error) {
+                $("#info").html(error.responseText);
+            }
+    })
+        
+    }
+}
+// Styling av kartet
+var myCustomStyle = {
+    stroke: false,
+    fill: true,
+    fillColor: '#fff',
+    fillOpacity: 1
+}
+var myStyle = {
+    "color": "#ff7800",
+    "weight": 1,
+    "opacity": 0.65
+};
+
+// Kart definisjon.
+var map = L.map('map').setView([0, 0], 4);
+L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+maxZoom: 18,
+id: 'mapbox/streets-v11',
+tileSize: 512,
+zoomOffset: -1,
+accessToken: 'pk.eyJ1IjoiaGFrZW5lIiwiYSI6ImNrbDgweWR6MDA3dGwycG9iOWhsMXFwMjQifQ._hRzTAWcTR3aroytRGgcpQ',
+noWrap : true
+}).addTo(map);
+
+// Legg til geojson lag på kartet, med registrering av callback funksjon for hvert land.
+L.geoJson(mapjson, {
+    onEachFeature: onEachFeature,
+    style: myStyle
+}).addTo(map);
+        
+</script>
+
+<!-- div som skal inneholde responsen fra Ajax requesten når ett land blir klikket på -->
+<div id="info"></div>
+{% endblock %}
