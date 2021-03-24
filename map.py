@@ -32,23 +32,10 @@ def country_stat():
         db = get_db()
         df = pd.DataFrame(db.country_data.find({
             "Country":data
-        }))
+        }, {'_id': 0})).transpose()
 
-        # Testing placeholder.  Create a plot, store it as an image and call the template with the url to the image as argument.  
-        import os
-        try:
-            os.unlink('worldfacts/static/figure.jpg')
-        except:
-            pass
-        plot = ( 
-        ggplot(df)  
-        + aes(x="Country", y="Life Expectancy At Birth")  
-        + geom_point()  
-        + theme(axis_text_x=element_text(rotation=90, hjust=1))
-        )
-        plot.save("worldfacts/static/figure.jpg")
-        nocache_url = url_for('static', filename="figure.jpg") + "?" + str(random.randint(10000, 5000000))
-        return render_template('map/country.html', url=nocache_url)
+        
+        return render_template('map/country.html', table=df.to_html())
 
     # If no POST request, redirect to the map index
     return redirect(url_for('map.index'))

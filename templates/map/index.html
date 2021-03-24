@@ -27,10 +27,10 @@
             url: "{{url_for('map.country_stat')}}", 
             data: JSON.stringify({cname: e.target.feature.properties.sovereignt}),
             success: function(result){
-                $("#info").html(result.responseText);
+                document.getElementById('info').html += result.responseText;
             },
-            error: function(error) {
-                $("#info").html(error.responseText);
+            error: function(result) {
+                document.getElementById('info').innerHTML = result.responseText;
             }
     })
         
