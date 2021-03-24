@@ -1,9 +1,18 @@
-# No-Name
-2021-Studio-Project
+# How to get the flask app running
 
+## Folder structure
+* Create a folder named studio2-flask
+* Create a worldfacts folder within this folder
+* Clone this repository to the worldfacts folder
 
+## Virual environment setup
+* From the studio2-flask folder, create a virtual environment and activate it
+* Install flask with the command _pip install flask_
 
+## Running the app (windows)
+* From the studio2-flask folder, enter the following commands
+* _set FLASK\_APP=worldfacts_ 
+* _set FLASK\_ENV=development_ 
+* _flask run_
 
-You will Find the Default Geojson file in the folder and a Copy of our current CSV file.
-
-Ïn a branch of this acrhive you will also get access to 19 different python books.
+Install any missing dependencies depending on error message
