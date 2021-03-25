@@ -32,14 +32,14 @@ def country_stat():
     if request.method == 'POST':
         data = request.get_json()
         data = data['cname']
-        conn = pymongo.MongoClient()
+        
         db = get_db()
         df = pd.DataFrame(db.country_data.find({
             "iso":data
         }, {'_id': 0})).transpose()
 
         
-        return render_template('map/country.html', table=df.to_html())
+        return render_template('map/country.html', table=df.style.render())
 
     # If no POST request, redirect to the map index
 
