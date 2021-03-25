@@ -13,19 +13,19 @@
 	function onEachFeature(feature, layer) {
     
     // Denne funksjonen legger til en callback funksjon til hvert land
-    if (feature.properties && feature.properties.sovereignt) {
+    if (feature.id) {
         layer.on('click', clicked)
     }
 
     // callback funksjonen.  Ajax request som oppdaterer #info div med responsen
     function clicked(e) {
-        country_name = e.target.feature.properties.sovereignt
+        country_name = e.target.feature.id
         $.ajax({
             type: "POST",
             contentType: "application/json",
             dataType: "json",
             url: "{{url_for('map.country_stat')}}", 
-            data: JSON.stringify({cname: e.target.feature.properties.sovereignt}),
+            data: JSON.stringify({cname: e.target.feature.id}),
             success: function(result){
                 document.getElementById('info').html += result.responseText;
             },
@@ -62,7 +62,7 @@ noWrap : true
 }).addTo(map);
 
 // Legg til geojson lag på kartet, med registrering av callback funksjon for hvert land.
-L.geoJson(mapjson, {
+L.geoJson({{ geojson|safe }}, {
     onEachFeature: onEachFeature,
     style: myStyle
 }).addTo(map);

@@ -14,12 +14,16 @@ matplotlib.use('Agg')
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 import random
 from worldfacts.db import get_db
+from bson.json_util import dumps
 
 bp = Blueprint('map', __name__)
 
 @bp.route('/')
 def index():
-    return render_template('map/index.html', test="testing")
+    db = get_db()
+    mapjson = dumps(list(db.countries.geo.find({})))
+
+    return render_template('map/index.html', geojson = mapjson)
 
 @bp.route('/country', methods=('POST','GET'))
 def country_stat():
@@ -31,11 +35,14 @@ def country_stat():
         conn = pymongo.MongoClient()
         db = get_db()
         df = pd.DataFrame(db.country_data.find({
-            "Country":data
+            "iso":data
         }, {'_id': 0})).transpose()
 
         
         return render_template('map/country.html', table=df.to_html())
 
     # If no POST request, redirect to the map index
+
+    
+
     return redirect(url_for('map.index'))
