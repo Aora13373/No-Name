@@ -8,6 +8,11 @@
 ## Virual environment setup
 * From the studio2-flask folder, create a virtual environment and activate it
 * Install flask with the command _pip install flask_
+* Common dependencies to install: 
+    * _pip install pandas_
+    * _pip install pymongo_
+    * _pip install dnspython_
+
 
 ## Running the app (windows)
 * From the studio2-flask folder, enter the following commands
