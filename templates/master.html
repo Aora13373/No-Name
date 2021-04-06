@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>Leaflet GeoJSON Example</title>
+    <title>World Factbook Explorer</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.css" />
@@ -18,7 +18,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-        <a class="navbar-brand" href="#">Home</a>
+        <a class="navbar-brand" href="/">Home</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -28,9 +28,18 @@
             <li class="nav-item">
               <a class="nav-link" href="/">World Map</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/top5">Top 5</a>
-            </li>
+            <div class="dropdown">
+              <div class="btn-group">
+                <button class="btn nav-link dropdown-toggle" type="button" data-toggle="dropdown">Plots
+                  <span class="caret"></span></button>
+                  <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="/top5">Top 5</a></li>
+                       <li><a class="dropdown-item" href="/bottom5">Bottom 5</a></li>
+                       <li><a class="dropdown-item" href="/scandinavia">Scaninavia compare</a></li>
+                  </ul>
+                  </li>
+              </div>
+          </div>
           </ul>
           <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
@@ -40,11 +49,14 @@
       </nav>
   
       <main role="main" class="container">
-  
+        
         <div class="starter-template">
+          
           <h1>World Factbook Explorer</h1>
-          <p class="lead">A Noroff Studio 2 project developed by team=team.name 
+          <p class="lead">{% block intro %}A Noroff Studio 2 project developed by team=team.name 
+          {% endblock %}
         </div>
+        
   
       </main><!-- /.container -->
     

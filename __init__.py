@@ -54,5 +54,9 @@ def create_app(test_config=None):
     from . import top5
     app.register_blueprint(top5.bp)
     app.add_url_rule('/top5', endpoint='top5')
+
+    from . import bottom5
+    app.register_blueprint(bottom5.bp)
+    app.add_url_rule('/top5', endpoint='bottom5')
 # -------------------------------------------------------
     return app

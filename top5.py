@@ -23,19 +23,40 @@ def top5(params = ['GDP']):
 
     # Each plot should be generated from standalone functions,  no plot generating code should be in this function in the end.
     db = get_db()
-    df = pd.DataFrame(db.country_data.find({}, {'GDP': 1, 'Country': 1}).sort('GDP', -1)[:5])
 
-    ax = df.plot.bar()
-    ax.set_xticklabels(df['Country'], rotation=45)
-    
-    fig = ax.get_figure()
-    
-    # Convert plot to PNG image
-    pngImage = io.BytesIO()
-    FigureCanvas(fig).print_png(pngImage)
-    
-    # Encode PNG image to base64 string
-    pngImageB64String = "data:image/png;base64,"
-    pngImageB64String += base64.b64encode(pngImage.getvalue()).decode('utf8')
-    
-    return render_template("top5/bar.html", image=pngImageB64String)
+    properties = list(db.country_data.find_one({}).keys())[2:-1]   
+
+
+    if request.method == 'POST':
+        
+
+        plots = generate_top_5(request.form)
+        
+        return render_template("top5/bar.html", images=plots, props=properties)
+    else:
+        return render_template("top5/welcome.html", props=properties)
+
+
+def generate_top_5(props):
+
+    db = get_db()
+    return_list = []
+    for prop in props:
+
+        df = pd.DataFrame(db.country_data.find({}, {prop: 1, 'Country': 1}).sort(prop, -1)[:5])
+
+        ax = df.plot.bar()
+        ax.set_xticklabels(df['Country'], rotation=45)
+        
+        fig = ax.get_figure()
+        
+        # Convert plot to PNG image
+        pngImage = io.BytesIO()
+        FigureCanvas(fig).print_png(pngImage)
+        
+        # Encode PNG image to base64 string
+        pngImageB64String = "data:image/png;base64,"
+        pngImageB64String += base64.b64encode(pngImage.getvalue()).decode('utf8')
+        return_list.append(pngImageB64String)
+
+    return return_list

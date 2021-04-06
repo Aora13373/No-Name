@@ -1,0 +1,22 @@
+{% extends 'master.html' %}
+
+{% block intro %}
+Bottom 5 statistics
+{% endblock %}
+
+{% block content %}
+
+<form method="post">
+    <div class="row">
+   
+    {% for prop in props %}
+        <div class="col-md-3">
+            <input onChange="this.form.submit()" type="checkbox" id="{{ prop }}" name="{{ prop }}" />
+            <label for="{{ prop }}">{{ prop }}</label>
+        </div>
+    {% endfor %}
+
+</div>
+</form>
+
+{% endblock %}
