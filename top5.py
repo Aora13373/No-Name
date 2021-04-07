@@ -24,7 +24,11 @@ def top5(params = ['GDP']):
     # Each plot should be generated from standalone functions,  no plot generating code should be in this function in the end.
     db = get_db()
 
-    properties = list(db.country_data.find_one({}).keys())[2:-1]   
+    properties = list(db.country_data.find_one({}).keys())
+    remove = ['Country', "_id", "iso"]
+    for rem in remove:
+        properties.remove(rem)
+    properties.sort()
 
 
     if request.method == 'POST':

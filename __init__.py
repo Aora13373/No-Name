@@ -47,9 +47,13 @@ def create_app(test_config=None):
 
     # Import all the blueprints and define url rules
 # -------------------------------------------------------
+    from . import index
+    app.register_blueprint(index.bp)
+    app.add_url_rule('/', endpoint='index')
+    
     from . import map
     app.register_blueprint(map.bp)
-    app.add_url_rule('/', endpoint='index')
+    app.add_url_rule('/worldmap', endpoint='index')
     
     from . import top5
     app.register_blueprint(top5.bp)

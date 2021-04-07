@@ -1,0 +1,52 @@
+{% extends 'master.html' %}
+{% block content %}
+
+<div class="containter">
+    
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            Welcome to the World Factbook explorer.  This website was created as a team project in the Studio2 course at Noroff University College.  
+            The goal was to create a lightweight, user friendly and useful resource for anyone who wants to quickly check facts about a country. 
+        </div>
+        
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-6 text-center">
+            <h4>Acknowledgements</h4>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <table class="table table-dark">
+                <tr>
+                    <td>World Facts</td>
+                    <td><a href="https://www.cia.gov/the-world-factbook/">CIA Worldfactbook</a></td>
+                </tr>
+                <tr>
+                    <td>World Map</td>
+                    <td>
+                        <a href="https://leafletjs.com/">Leaflet</a><br>
+                        <a href="https://www.openstreetmap.org/">OpenStreetMap</a><br>
+                        <a href="https://www.mapbox.com/">Mapbox</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Database provider</td>
+                    <td><a href="https://www.mongodb.com/cloud/atlas">MongoDB Atlas</a></td>
+                </tr>
+                <tr>
+                    <td>Python Web Framework</td>
+                    <td><a href="https://flask.palletsprojects.com/en/1.1.x/">Flask</a></td>
+                </tr>
+                <tr>
+                    <td>Hosting</td>
+                    <td><a href="https://www.heroku.com/">Heroku</a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    
+</div>
+
+{% endblock %}

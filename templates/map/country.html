@@ -1,1 +1,178 @@
-<div>{{ table|safe }}</div>
+<div class="container">
+    <div class="page-header">
+        <h1>{{ data["Country"] }}</h1>
+    </div>
+    <div class="row">
+    	<div class="col-md-12">
+            <div class="panel with-nav-tabs panel-default">
+                <div class="panel-heading">
+                        <ul class="nav nav-tabs">
+                            <li><a class="btn btn-primary active" href="#tab4default" data-toggle="tab">General</a></li>
+                            <li><a class="btn btn-primary" href="#tab1default" data-toggle="tab">Humanitarian</a></li>
+                            <li><a class="btn btn-primary" href="#tab2default" data-toggle="tab">Economics</a></li>
+                            <li><a class="btn btn-primary" href="#tab3default" data-toggle="tab">Technology</a></li>
+                        </ul>
+                </div>
+                <div class="panel-body">
+                    <div class="tab-content">
+                        <div class="tab-pane fade" id="tab1default">
+                            <table class="table table-borderless table-dark">
+
+                                <tbody>
+                                  <tr>
+                                    <th scope="row">Mean Age</th>
+                                    <td>{{ data["Mean Age"] }}</td>
+                                    <td>{{ units["Mean Age"] }}</td>
+
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">Children Under 5 Years Underweight</th>
+                                    <td>{{ data["Children Under 5 Years Underweight"] }}</td>
+                                    <td>{{ units["Children Under 5 Years Underweight"] }}</td>
+
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">Infant Mortality Rate</th>
+                                    <td>{{ data["Infant Mortality Rate"] }}</td>
+                                    <td>{{ units["Infant Mortality Rate"] }}</td>
+
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">Life Expectancy At Birth</th>
+                                    <td>{{ data["Life Expectancy At Birth"] }}</td>
+                                    <td>{{ units["Life Expectancy At Birth"] }}</td>
+
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">Total Fertility Rate</th>
+                                    <td>{{ data["Total Fertility Rate"] }}</td>
+                                    <td>{{ units["Total Fertility Rate"] }}</td>
+
+                                  </tr>
+                                </tbody>
+                              </table>
+                        </div>
+                        <div class="tab-pane fade" id="tab2default">
+                            <table class="table table-borderless table-dark">
+
+                                <tbody>
+                                  <tr>
+                                    <th scope="row">GDP</th>
+                                    <td>{{ data["GDP"] }}</td>
+                                    <td>{{ units["GDP"] }}</td>
+
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">GDP Per Capita</th>
+                                    <td>{{ data["GDP Per Capita"] }}</td>
+                                    <td>{{ units["GDP Per Capita"] }}</td>
+
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">External Debt</th>
+                                    <td>{{ data["External Debt"] }}</td>
+                                    <td>{{ units["External Debt"] }}</td>
+
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">Inflation Rate</th>
+                                    <td>{{ data["Inflation Rate"] }}</td>
+                                    <td>{{ units["Inflation Rate"] }}</td>
+
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">Military Expenditures</th>
+                                    <td>{{ data["Military Expenditures"] }}</td>
+                                    <td>{{ units["Military Expenditures"] }}</td>
+
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">Public Debt GDP</th>
+                                    <td>{{ data["Public Debt GDP"] }}</td>
+                                    <td>{{ units["Public Debt GDP"] }}</td>
+
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">Youth Unenployment Rate</th>
+                                    <td>{{ data["Youth Unenployment Rate"] }}</td>
+                                    <td>{{ units["Youth Unenployment Rate"] }}</td>
+
+                                  </tr>
+                                </tbody>
+                              </table>
+                        </div>
+                        <div class="tab-pane fade" id="tab3default">
+                            <table class="table table-borderless table-dark">
+
+                                <tbody>
+                                  <tr>
+                                    <th scope="row">Electricity Consumption</th>
+                                    <td>{{ data["Electricity Consumption"] }}</td>
+                                    <td>{{ units["Electricity Consumption"] }}</td>
+
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">Electricity from Hydro Electric</th>
+                                    <td>{{ data["Electricity from Hydro Electric"] }}</td>
+                                    <td>{{ units["Electricity from Hydro Electric"] }}</td>
+
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">Electricity from Fossil Fuel</th>
+                                    <td>{{ data["Electricity from Fossil Fuel"] }}</td>
+                                    <td>{{ units["Electricity from Fossil Fuel"] }}</td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">Electricity From Nuclear Fuel</th>
+                                    <td>{{ data["Electricity From Nuclear Fuel"] }}</td>
+                                    <td>{{ units["Electricity From Nuclear Fuel"] }}</td>
+
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">Electricity From Other Renewable</th>
+                                    <td>{{ data["Electricity From Other Renewable"] }}</td>
+                                    <td>{{ units["Electricity From Other Renewable"] }}</td>
+
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">Internet Users</th>
+                                    <td>{{ data["Internet Users"] }}</td>
+                                    <td>{{ units["Internet Users"] }}</td>
+
+                                  </tr>
+
+                                </tbody>
+                              </table>
+                        </div>
+                        <div class="tab-pane fade show active" id="tab4default">
+                            <table class="table table-borderless table-dark">
+
+                                <tbody>
+                                  <tr>
+                                    <th scope="row">Population</th>
+                                    <td colspan="2">{{ data["Population"] }}</td>
+                                    
+
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">Area</th>
+                                    <td>{{ data["Area"] }}</td>
+                                    <td>{{ units["Area"] }}</td>
+
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">ISO abbrevation</th>
+                                    <td colspan="2">{{ data["iso"] }}</td>
+                                    
+
+                                  </tr>
+                                </tbody>
+                              </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>

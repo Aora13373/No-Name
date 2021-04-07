@@ -18,7 +18,7 @@ from bson.json_util import dumps
 
 bp = Blueprint('map', __name__)
 
-@bp.route('/')
+@bp.route('/worldmap')
 def index():
     db = get_db()
     mapjson = dumps(list(db.countries.geo.find({})))
@@ -34,12 +34,20 @@ def country_stat():
         data = data['cname']
         
         db = get_db()
-        df = pd.DataFrame(db.country_data.find({
+        country = db.country_data.find_one({
             "iso":data
-        }, {'_id': 0})).transpose()
+        })
+
+        units = db.units.find({})
+        prop_units = dict()
+        for unit in units:
+            prop_units[unit["property"]] = unit["unit"]
+        
+        
+
 
         
-        return render_template('map/country.html', table=df.style.render())
+        return render_template('map/country.html', data=country, units=prop_units)
 
     # If no POST request, redirect to the map index
 

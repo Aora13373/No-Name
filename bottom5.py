@@ -23,7 +23,11 @@ def bottom5(params = ['GDP']):
 
     db = get_db()
 
-    properties = list(db.country_data.find_one({}).keys())[2:-1]   
+    properties = list(db.country_data.find_one({}).keys())
+    remove = ['Country', "_id", "iso"]
+    for rem in remove:
+        properties.remove(rem)
+    properties.sort()
 
 
     if request.method == 'POST':
