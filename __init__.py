@@ -61,6 +61,10 @@ def create_app(test_config=None):
 
     from . import bottom5
     app.register_blueprint(bottom5.bp)
-    app.add_url_rule('/top5', endpoint='bottom5')
+    app.add_url_rule('/bottom5', endpoint='bottom5')
+
+    from . import scandinavian
+    app.register_blueprint(scandinavian.bp)
+    app.add_url_rule('/scandinavia', endpoint='scandinavia')
 # -------------------------------------------------------
     return app
