@@ -1,9 +1,6 @@
 import functools
 import pymongo
 import pandas as pd
-from plotnine import (
-    ggplot, geom_point, geom_bar, theme, element_text, aes
-)
 from flask import(
     Response, Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
