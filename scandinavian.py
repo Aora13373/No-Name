@@ -9,6 +9,7 @@ matplotlib.use('Agg')
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from matplotlib.figure import Figure
 from worldfacts.db import get_db
+from matplotlib.font_manager import FontProperties
 
 
 bp = Blueprint('scandinavian', __name__)
@@ -32,38 +33,65 @@ def scandinavia(params = ['GDP']):
 
 def generate_scandinavian(props):
     '''Docstring'''
-    #df = pd.read_csv('FactBook2.v3.csv')
-    #t1 = df[df['Country'] == 'Norway']
-    #t2 = df[df['Country'] == 'Sweden']
-    #t3 = df[df['Country'] == 'Finland']
-    #t4 = df[df['Country'] == 'Denmark']
-      
+
     db = get_db()
     return_list = []
     
-
     countries = ['Norway', 'Sweeden', 'Denmark', 'Finland', 'Iceland']
     for prop in props:
         df = pd.DataFrame(db.country_data.find({'Country': {
             "$in": countries
         }}, {prop: 1, 'Country': 1}))
 
-# Fjerner alle row's som er i dataframen men beholder columnsa og structuren
-        #df = pd.DataFrame(columns=df.columns)
-        #df = df.append(t1)
-        #df = df.append(t2)
-        #df = df.append(t3)
-        #df = df.append(t4)
+# ----------------
+#group_labels = ['Norway', 'Sweden',
+#                'Finland', Denmark']
+
+#ax = df.plot(x='Country', 
+# ------------------
+
         
-        ax = df.plot.bar()
-        ax.set_xticklabels(df['Country'], rotation=45)
+        # Defines the plot
+        ax = df.plot.bar(rot=0)
+        
+        ax.set_xticklabels(df['Country'],fontsize=20,color='red',
+        fontfamily='sans-serif',fontstyle='italic',
+        fontvariant='small-caps',fontweight='heavy')
+        
+        ax.set_title('Scandinavian Countries', 
+        fontsize=20,fontweight='heavy',fontvariant='normal',
+        fontfamily='sans-serif',color='green')
+        
         fig = ax.get_figure()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   
-        # Convert plot to PNG image
+        # Converts plot --> PNG image
         pngImage = io.BytesIO()
         FigureCanvas(fig).print_png(pngImage)
         
-        # Encode PNG image to base64 string
+        # Encodes PNG image --> base64 string
         pngImageB64String = "data:image/png;base64,"
         pngImageB64String += base64.b64encode(pngImage.getvalue()).decode('utf8')
         return_list.append(pngImageB64String)
