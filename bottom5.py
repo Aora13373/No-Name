@@ -51,7 +51,7 @@ def generate_bottom_5(props):
         # Defines the plot
         ax = df.plot.bar(rot=0)
         
-        ax.set_xticklabels(df['Country'],fontsize=20,color='red',
+        ax.set_xticklabels(df['Country'],fontsize=15,color='red',
                                 fontfamily='sans-serif',fontstyle='italic',
                                 fontvariant='small-caps',fontweight='heavy')
         ax.set_title('Bottom 5 Countries', 
