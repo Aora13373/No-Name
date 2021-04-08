@@ -49,11 +49,19 @@ def generate_top_5(props):
 
         df = pd.DataFrame(db.country_data.find({}, {prop: 1, 'Country': 1}).sort(prop, -1)[:5])
 
-        ax = df.plot.bar()
-        ax.set_xticklabels(df['Country'], rotation=45)
+        # Defines the plot
+        ax = df.plot.bar(rot=0)
+        
+        ax.set_xticklabels(df['Country'],fontsize=20,color='red',
+                                fontfamily='sans-serif',fontstyle='italic',
+                                fontvariant='small-caps',fontweight='heavy')
+        
+        ax.set_title('Top 5 Countries', 
+                        fontsize=20,fontweight='heavy',fontvariant='normal',
+                        fontfamily='sans-serif',color='green')
         
         fig = ax.get_figure()
-        
+
         # Convert plot to PNG image
         pngImage = io.BytesIO()
         FigureCanvas(fig).print_png(pngImage)
