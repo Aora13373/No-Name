@@ -19,7 +19,6 @@ bp = Blueprint('map', __name__)
 def index():
     db = get_db()
     mapjson = dumps(list(db.countries.geo.find({})))
-
     return render_template('map/index.html', geojson = mapjson)
 
 @bp.route('/country', methods=('POST','GET'))
@@ -29,25 +28,14 @@ def country_stat():
     if request.method == 'POST':
         data = request.get_json()
         data = data['cname']
-        
         db = get_db()
-        country = db.country_data.find_one({
-            "iso":data
-        })
-
+        country = db.country_data.find_one({"iso":data})
         units = db.units.find({})
         prop_units = dict()
+        
         for unit in units:
             prop_units[unit["property"]] = unit["unit"]
-        
-        
-
-
-        
+            
         return render_template('map/country.html', data=country, units=prop_units)
-
     # If no POST request, redirect to the map index
-
-    
-
     return redirect(url_for('map.index'))
