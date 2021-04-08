@@ -1,21 +1,18 @@
-import pandas as pd
-
+# Imports
 from flask import(
-    Flask, Response, Blueprint, flash, g, redirect, render_template, request, session, url_for
-)
+    Flask, Response, Blueprint, flash, g, redirect, render_template, request, session, url_for)
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+from matplotlib.figure import Figure
+from matplotlib import rcParams
+from worldfacts.db import get_db
 import io
 import base64
 import matplotlib
+import pandas as pd
+
 matplotlib.use('Agg')
-from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
-from matplotlib.figure import Figure
-from worldfacts.db import get_db
-
-
 bp = Blueprint('top5', __name__)
 app = Flask(__name__)
-
-from matplotlib import rcParams
 rcParams.update({'figure.autolayout': True})
 
 @bp.route('/top5', methods=('POST','GET'))

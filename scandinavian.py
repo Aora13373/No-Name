@@ -1,21 +1,18 @@
-import pandas as pd
+# Imports
 from flask import(
-    Flask, Response, Blueprint, flash, g, redirect, render_template, request, session, url_for
-)
+    Flask, Response, Blueprint, flash, g, redirect, render_template, request, session, url_for)
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+from matplotlib.figure import Figure
+from matplotlib import rcParams
+from worldfacts.db import get_db
 import io
 import base64
 import matplotlib
+import pandas as pd
+
 matplotlib.use('Agg')
-from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
-from matplotlib.figure import Figure
-from worldfacts.db import get_db
-from matplotlib.font_manager import FontProperties
-
-
 bp = Blueprint('scandinavian', __name__)
 app = Flask(__name__)
-
-from matplotlib import rcParams
 rcParams.update({'figure.autolayout': True})
 
 @bp.route('/scandinavia', methods=('POST','GET'))
@@ -35,57 +32,22 @@ def generate_scandinavian(props):
     '''Docstring'''
 
     db = get_db()
+    countries = ['Norway', 'Sweeden', 'Denmark', 'Finland', 'Iceland']
     return_list = []
     
-    countries = ['Norway', 'Sweeden', 'Denmark', 'Finland', 'Iceland']
     for prop in props:
         df = pd.DataFrame(db.country_data.find({'Country': {
-            "$in": countries
-        }}, {prop: 1, 'Country': 1}))
+            "$in": countries}}, {prop: 1, 'Country': 1}))
 
-# ----------------
-#group_labels = ['Norway', 'Sweden',
-#                'Finland', Denmark']
-
-#ax = df.plot(x='Country', 
-# ------------------
-
-        
-        # Defines the plot
+        # Plot modifications
         ax = df.plot.bar(rot=0)
-        
         ax.set_xticklabels(df['Country'],fontsize=20,color='red',
-        fontfamily='sans-serif',fontstyle='italic',
-        fontvariant='small-caps',fontweight='heavy')
-        
+                            fontfamily='sans-serif',fontstyle='italic',
+                            fontvariant='small-caps',fontweight='heavy')
         ax.set_title('Scandinavian Countries', 
-        fontsize=20,fontweight='heavy',fontvariant='normal',
-        fontfamily='sans-serif',color='green')
-        
+                            fontsize=20,fontweight='heavy',fontvariant='normal',
+                            fontfamily='sans-serif',color='green')
         fig = ax.get_figure()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   
         # Converts plot --> PNG image
         pngImage = io.BytesIO()
