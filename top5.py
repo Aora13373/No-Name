@@ -53,7 +53,7 @@ def generate_top_5(props):
 
         ax.set_xticklabels(df['Country'],fontsize=15,color='red',
                                 fontfamily='sans-serif',fontstyle='italic',
-                                fontvariant='small-caps',fontweight='heavy', rotation=10, ha='right')
+                                fontvariant='small-caps',fontweight='heavy', rotation=15, ha='right')
 
         ax.set_title('Top 5 Countries',
                         fontsize=20,fontweight='heavy',fontvariant='normal',
