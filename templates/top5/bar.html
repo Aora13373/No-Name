@@ -5,23 +5,23 @@ Top 5 statistics
 {% block content %}
 
 <form method="post">
-    <div class="row">
-   
+    <div class="row" id=marg>
+
         {% for prop in props %}
             <div class="col-md-3">
-                    <input onChange="this.form.submit()" type="checkbox" id="{{ prop }}" name="{{ prop }}" 
+                    <input onChange="this.form.submit()" type="checkbox" id="{{ prop }}" name="{{ prop }}"
                     {{ "checked" if request.form[prop] else "" }}/>
                     <label for="{{ prop }}">{{ prop }}</label>
             </div>
         {% endfor %}
-        
+
     </div>
 </form>
 
 
 
 <div class="row">
-    {% for image in images %}        
+    {% for image in images %}
             <img class="col-md-3" src="{{ image }}" />
     {% endfor %}
 </div>
