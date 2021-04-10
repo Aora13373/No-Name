@@ -28,10 +28,10 @@ def bottom5(params = ['GDP']):
 
 
     if request.method == 'POST':
-        
+
 
         plots = generate_bottom_5(request.form)
-        
+
         return render_template("bottom5/bar.html", images=plots, props=properties)
     else:
         return render_template("bottom5/welcome.html", props=properties)
@@ -46,21 +46,21 @@ def generate_bottom_5(props):
         df = pd.DataFrame(db.country_data.find({prop: {"$ne": None}}, {prop: 1, 'Country': 1}).sort(prop, 1)[:5])
 
         # Defines the plot
-        ax = df.plot.bar(rot=0)
-        
+        ax = df.plot.bar(rot=0, figsize=(8,6))
+
         ax.set_xticklabels(df['Country'],fontsize=15,color='red',
                                 fontfamily='sans-serif',fontstyle='italic',
-                                fontvariant='small-caps',fontweight='heavy')
-        ax.set_title('Bottom 5 Countries', 
+                                fontvariant='small-caps',fontweight='heavy', rotation=15, ha='right')
+        ax.set_title('Bottom 5 Countries',
                         fontsize=20,fontweight='heavy',fontvariant='normal',
                         fontfamily='sans-serif',color='green')
-        
+
         fig = ax.get_figure()
-        
+
         # Convert plot to PNG image
         pngImage = io.BytesIO()
         FigureCanvas(fig).print_png(pngImage)
-        
+
         # Encode PNG image to base64 string
         pngImageB64String = "data:image/png;base64,"
         pngImageB64String += base64.b64encode(pngImage.getvalue()).decode('utf8')

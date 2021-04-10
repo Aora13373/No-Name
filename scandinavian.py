@@ -18,9 +18,9 @@ rcParams.update({'figure.autolayout': True})
 @bp.route('/scandinavia', methods=('POST','GET'))
 def scandinavia(params = ['GDP']):
     '''Docstring'''
-    
+
     db = get_db()
-    properties = list(db.country_data.find_one({}).keys())[2:-1]   
+    properties = list(db.country_data.find_one({}).keys())[2:-1]
 
     if request.method == 'POST':
         plots = generate_scandinavian(request.form)
@@ -32,27 +32,27 @@ def generate_scandinavian(props):
     '''Docstring'''
 
     db = get_db()
-    countries = ['Norway', 'Sweeden', 'Denmark', 'Finland', 'Iceland']
+    countries = ['Norway', 'Sweden', 'Denmark', 'Finland', 'Iceland']
     return_list = []
-    
+
     for prop in props:
         df = pd.DataFrame(db.country_data.find({'Country': {
             "$in": countries}}, {prop: 1, 'Country': 1}))
 
         # Plot modifications
         ax = df.plot.bar(rot=0)
-        ax.set_xticklabels(df['Country'],fontsize=20,color='red',
+        ax.set_xticklabels(df['Country'],fontsize=15,color='red',
                             fontfamily='sans-serif',fontstyle='italic',
-                            fontvariant='small-caps',fontweight='heavy')
-        ax.set_title('Scandinavian Countries', 
+                            fontvariant='small-caps',fontweight='heavy', rotation=15, ha="right")
+        ax.set_title('Scandinavian Countries',
                             fontsize=20,fontweight='heavy',fontvariant='normal',
                             fontfamily='sans-serif',color='green')
         fig = ax.get_figure()
-  
+
         # Converts plot --> PNG image
         pngImage = io.BytesIO()
         FigureCanvas(fig).print_png(pngImage)
-        
+
         # Encodes PNG image --> base64 string
         pngImageB64String = "data:image/png;base64,"
         pngImageB64String += base64.b64encode(pngImage.getvalue()).decode('utf8')
