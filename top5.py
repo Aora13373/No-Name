@@ -42,6 +42,13 @@ def generate_top_5(props):
 
     db = get_db()
     return_list = []
+
+    units = db.units.find({})
+    prop_units = dict()
+    
+    for unit in units:
+        prop_units[unit["property"]] = unit["unit"]
+
     for prop in props:
 
         df = pd.DataFrame(db.country_data.find({}, {prop: 1, 'Country': 1}).sort(prop, -1)[:5])
@@ -49,15 +56,18 @@ def generate_top_5(props):
 
 
         # Defines the plot
-        ax = df.plot.bar(rot=0, figsize=(8,6))
+        ax = df.plot.bar()
+        ax.get_legend().remove()
 
         ax.set_xticklabels(df['Country'],fontsize=15,color='red',
                                 fontfamily='sans-serif',fontstyle='italic',
                                 fontvariant='small-caps',fontweight='heavy', rotation=15, ha='right')
 
-        ax.set_title('Top 5 Countries',
-                        fontsize=20,fontweight='heavy',fontvariant='normal',
+        ax.set_title(prop,
+                        fontsize=15,fontweight='heavy',fontvariant='normal',
                         fontfamily='sans-serif',color='green')
+        if prop in prop_units.keys():
+            ax.set_ylabel(prop_units[prop])  
 
 
 
